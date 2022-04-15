@@ -10,5 +10,5 @@ public interface UserService {
 
     boolean checkEmailForExisting(String email);
 
-    ResponseEntity<User> addUser(RegisterUser user);
+    ResponseEntity<?> addUser(RegisterUser user);
 }

@@ -30,7 +30,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ResponseEntity<User> addUser(RegisterUser user) {
+    public ResponseEntity<?> addUser(RegisterUser user) {
+
+        if (checkEmailForExisting(user.getEmail())) {
+            return new ResponseEntity<>("This email is used", HttpStatus.CONFLICT);
+        }
 
         if (!checkPasswords(user.getPassword(), user.getRepassword())) {
             return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);

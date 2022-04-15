@@ -29,12 +29,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody RegisterUser user) {
+    public ResponseEntity<?> registerUser(@RequestBody RegisterUser user) {
         return userService.addUser(user);
     }
 
     @GetMapping("/email")
-    public boolean checkEmailForExisting(@RequestParam(name="email") String email) {
+    public boolean aBoolean(@RequestParam(name="email") String email) {
         return userService.checkEmailForExisting(email);
     }
 }

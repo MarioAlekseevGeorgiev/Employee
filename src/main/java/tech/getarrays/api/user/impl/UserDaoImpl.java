@@ -68,9 +68,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public boolean checkEmailForExisting(String email) {
         String sql =
-                "   SELECT 1                                " +
-                "     FROM user                             " +
-                "    WHERE email    = :email                ";
+                "   SELECT 1                                      " +
+                "     FROM user                                   " +
+                "    WHERE email    = :email                      ";
 
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource()
                 .addValue("email", email);
