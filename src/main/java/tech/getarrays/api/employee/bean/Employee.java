@@ -2,33 +2,33 @@ package tech.getarrays.api.employee.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 public class Employee implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false, updatable = false)
-    private Long id;
+    private Long   id;
     private String name;
     private String email;
     private String jobTitle;
     private String phone;
     private String imageUrl;
-    @Column(nullable = false, updatable = false)
-    private String employeeCode;
-    private Long userId;
+    private Long   companyId;
+    private Date bornDate;
 
     public Employee() {}
 
-    public Employee(Long id, String name, String email, String jobTitle, String phone, String imageUrl, String employeeCode, Long userId) {
+    public Employee(Long id, String name, String email, String jobTitle, String phone, String imageUrl, Long companyId, Date bornDate) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.jobTitle = jobTitle;
         this.phone = phone;
         this.imageUrl = imageUrl;
-        this.employeeCode = employeeCode;
-        this.userId = userId;
+        this.companyId = companyId;
+        this.bornDate = bornDate;
     }
 
     public Long getId() {return id;}
@@ -55,13 +55,13 @@ public class Employee implements Serializable {
 
     public void setImageUrl(String imageUrl) {this.imageUrl = imageUrl;}
 
-    public String getEmployeeCode() {return employeeCode;}
+    public Long getCompanyId() {return companyId;}
 
-    public void setEmployeeCode(String employeeCode) {this.employeeCode = employeeCode;}
+    public void setCompanyId(Long companyId) {this.companyId = companyId;}
 
-    public Long getUserId() {return userId;}
+    public Date getBornDate() {return bornDate;}
 
-    public void setUserId(Long userId) {this.userId = userId;}
+    public void setBornDate(Date bornDate) {this.bornDate = bornDate;}
 
     @Override
     public String toString() {
@@ -72,7 +72,8 @@ public class Employee implements Serializable {
                 ", jobTitle='" + jobTitle + '\'' +
                 ", phone='" + phone + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", employeeCode='" + employeeCode + '\'' +
+                ", companyId=" + companyId +
+                ", bornDate=" + bornDate +
                 '}';
     }
 }

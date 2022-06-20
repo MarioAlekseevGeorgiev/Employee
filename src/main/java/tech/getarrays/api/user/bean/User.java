@@ -2,10 +2,6 @@ package tech.getarrays.api.user.bean;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import static javax.persistence.FetchType.EAGER;
 
 @Entity
 public class User implements Serializable {

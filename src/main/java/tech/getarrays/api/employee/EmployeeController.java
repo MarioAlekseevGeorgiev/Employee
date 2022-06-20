@@ -26,9 +26,9 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("/all/{userId}")
-    public ResponseEntity<List<Employee>> getAllEmployees(@PathVariable("userId") Long userId) {
-        List<Employee> employees = employeeService.findAllEmployee(userId);
+    @GetMapping("/all/{companyId}")
+    public ResponseEntity<List<Employee>> getAllEmployees(@PathVariable("companyId") Long companyId) {
+        List<Employee> employees = employeeService.findAllEmployee(companyId);
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
@@ -52,8 +52,8 @@ public class EmployeeController {
 
     @GetMapping("/search")
     public ResponseEntity<List<Employee>> getAllEmployees(@RequestParam(name = "searchTerm") String searchTerm
-                                                        , @RequestParam(name = "userId") Long userId) {
-        List<Employee> employeesAll = employeeService.findAllEmployee(userId);
+                                                        , @RequestParam(name = "companyId") Long companyId) {
+        List<Employee> employeesAll = employeeService.findAllEmployee(companyId);
         employeesAll = employeesAll
                 .stream()
                 .filter(e -> e.getName().contains(searchTerm))

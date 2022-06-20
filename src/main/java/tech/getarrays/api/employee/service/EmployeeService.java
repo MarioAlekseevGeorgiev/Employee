@@ -35,21 +35,20 @@ public class EmployeeService {
         namedTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
-    public List<Employee> getAllEmployees(Long userId) {
+    public List<Employee> getAllEmployees(Long companyId) {
         String sql =
                         "   SELECT id                               " +
                         "        , email                            " +
-                        "        , employee_code                    " +
                         "        , image_url                        " +
                         "        , job_title                        " +
                         "        , name                             " +
                         "        , phone                            " +
-                        "        , user_id                          " +
+                        "        , company_id                       " +
                         "     FROM employee                         " +
-                          getUserId(userId);
+                         getCompanyId(companyId);
 
         MapSqlParameterSource sqlParameterSource = new MapSqlParameterSource()
-                .addValue("userId", userId);
+                .addValue("companyId", companyId);
 
         DaoUtils.debugQuery(logger, sql, sqlParameterSource);
 
@@ -58,18 +57,17 @@ public class EmployeeService {
             Employee res = new Employee();
             res.setId(resultSet.getLong("id"));
             res.setEmail(resultSet.getString("email"));
-            res.setEmployeeCode(resultSet.getString("employee_code"));
             res.setImageUrl(resultSet.getString("image_url"));
             res.setJobTitle(resultSet.getString("job_title"));
             res.setName(resultSet.getString("name"));
             res.setPhone(resultSet.getString("phone"));
-            res.setUserId(resultSet.getLong("user_id"));
+            res.setCompanyId(resultSet.getLong("company_id"));
             return res;
         });
     }
 
-    private String getUserId(Long userId) {
-        return userId != null ? "WHERE user_id = :userId    " : "";
+    private String getCompanyId(Long userId) {
+        return userId != null ? "WHERE company_id = :companyId    " : "";
     }
 
     @Autowired
@@ -78,18 +76,15 @@ public class EmployeeService {
     }
 
     public Employee addEmployee(Employee employee) {
-        employee.setEmployeeCode(UUID.randomUUID().toString());
         return employeeRepo.save(employee);
     }
 
-    public List<Employee> findAllEmployee(Long userId) {
-        return getAllEmployees(userId);
+    public List<Employee> findAllEmployee(Long companyId) {
+        return getAllEmployees(companyId);
       //  return employeeRepo.findAll();
     }
 
     public Employee updateEmployee(Employee employee) {
-        Employee oldEmployee = findEmployeeById(employee.getId());
-        employee.setEmployeeCode(oldEmployee.getEmployeeCode());
         return employeeRepo.save(employee);
     }
 
@@ -106,7 +101,7 @@ public class EmployeeService {
                         "         , job_title                                         " +
                         "         , name                                              " +
                         "         , phone                                             " +
-                        "         , user_id                                           " +
+                        "         , company_id                                        " +
                         "      FROM employee                                          " +
                         "     WHERE id = :id                                          ";
 
@@ -132,9 +127,9 @@ public class EmployeeService {
                 "         , job_title                                         " +
                 "         , name                                              " +
                 "         , phone                                             " +
-                "         , user_id                                           " +
+                "         , companyId                                         " +
                 "      FROM employee                                          " +
-                "     WHERE user_id = :id                                     " +
+                "     WHERE companyId = :id                                   " +
                         addSqlWhereClause( name,  email,  phone,  jobTitle);
     }
 
@@ -201,12 +196,11 @@ public class EmployeeService {
             Employee res = new Employee();
             res.setId(resultSet.getLong("id"));
             res.setEmail(resultSet.getString("email"));
-            res.setEmployeeCode(resultSet.getString("employee_code"));
             res.setImageUrl(resultSet.getString("image_url"));
             res.setJobTitle(resultSet.getString("job_title"));
             res.setName(resultSet.getString("name"));
             res.setPhone(resultSet.getString("phone"));
-            res.setUserId(resultSet.getLong("user_id"));
+            res.setCompanyId(resultSet.getLong("company_id"));
             totalResults[0] = resultSet.getInt("out_of");
 
             return res;
